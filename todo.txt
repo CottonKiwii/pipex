@@ -3,14 +3,21 @@ PIPEX
 ----------
 
 --- Research ---
-[ ] perror
-[ ] strerror
-[ ] access
-[ ] dup
-[ ] dup2
-[ ] execve
-[ ] fork
-[ ] pipe
+[X] perror - Takes a string to output an error message on stder2jo5ulwnr
+[X] strerror - Searches internally for error number(errnum) and returns ptr to an error message
+[X] access - Checks files for permission and returns 0 or -1 based on the result (uses errno)
+[ ] dup - creates copy of fd at the next best position (f.ex. 4)
+[ ] dup2 - creates a copy of fd and you can choose the position
+[ ] execve - executes a program by having the name, the argv and the Path to it as arguments
+[ ] fork - used for execve to not overwrite ./pipex, it creates a child process, 0 is child, -1 is error, >0 is parent
+[ ] pipe -
 [ ] unlink
 [ ] wait
 [ ] waitpid
+
+--- Overview ---
+[ ] Makefile
+[ ] No memory leaks
+[ ] Handle shell commands (file1 cmd 1 | cmd 2 > file2)
+[ ] Error handling
+[ ] Arguments as shell commands and files
