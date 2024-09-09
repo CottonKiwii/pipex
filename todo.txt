@@ -1,0 +1,16 @@
+----------
+PIPEX
+----------
+
+--- Research ---
+[ ] perror
+[ ] strerror
+[ ] access
+[ ] dup
+[ ] dup2
+[ ] execve
+[ ] fork
+[ ] pipe
+[ ] unlink
+[ ] wait
+[ ] waitpid
