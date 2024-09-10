@@ -6,14 +6,14 @@ PIPEX
 [X] perror - Takes a string to output an error message on stder2jo5ulwnr
 [X] strerror - Searches internally for error number(errnum) and returns ptr to an error message
 [X] access - Checks files for permission and returns 0 or -1 based on the result (uses errno)
-[ ] dup - creates copy of fd at the next best position (f.ex. 4)
-[ ] dup2 - creates a copy of fd and you can choose the position
-[ ] execve - executes a program by having the name, the argv and the Path to it as arguments
-[ ] fork - used for execve to not overwrite ./pipex, it creates a child process, 0 is child, -1 is error, >0 is parent
-[ ] pipe -
-[ ] unlink
-[ ] wait
-[ ] waitpid
+[X] dup - creates copy of fd at the next best position (f.ex. 4)
+[X] dup2 - creates a copy of fd and you can choose the position
+[X] execve - executes a program by having the name, the argv and the Path to it as arguments
+[X] fork - used for execve to not overwrite ./pipex, it creates a child process, 0 is child, -1 is error, >0 is parent
+[X] pipe - creates a pipe read and pipe write to be put to stdin and stdout to communicate output of first command with second command 
+[ ] unlink - not that important
+[X] wait - parent process waits until any child process terminates and returns the PID
+[X] waitpid - saves the exit status of the child and can be returned via macro (man waitpid)
 
 --- Overview ---
 [ ] Makefile
@@ -21,3 +21,16 @@ PIPEX
 [ ] Handle shell commands (file1 cmd 1 | cmd 2 > file2)
 [ ] Error handling
 [ ] Arguments as shell commands and files
+
+--- Steps ---
+[ ] Get arguments ready
+[ ] Handle fd changes with dup2 and don't forget to close!!!
+	[ ] Use dup2 to overwrite stdin and stdout
+	[ ] Use pipe to communicate between child and parent
+	[ ] Close original file
+[ ] Use execve
+	[ ] Check access
+	[ ] Create children
+	[ ] Get all the arguments for execve
+	[ ] Exit child manually if execve error
+[ ] Get final child's exit status with waitpid
