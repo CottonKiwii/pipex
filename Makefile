@@ -6,7 +6,7 @@
 #    By: jwolfram <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/10 16:29:52 by jwolfram          #+#    #+#              #
-#    Updated: 2024/09/10 17:40:51 by jwolfram         ###   ########.fr        #
+#    Updated: 2024/09/11 18:47:47 by jwolfram         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ C_FLAGS := -Wall -Wextra -Werror
 
 RM := rm -fr
 
-INCLUDES := -I./includes/ -I.libft/includes
+INCLUDES := -I./includes/ -I./libft/includes
 
 RED := \033[1;31m
 
@@ -30,7 +30,8 @@ DEFAULT := \033[0m
 
 SRCS_DIR := src
 
-SRCS_FILES := 
+SRCS_FILES := main \
+			  init \
 
 SRCS := ${SRCS_FILES:%=${SRCS_DIR}/%.c}
 
@@ -38,7 +39,7 @@ OBJS_DIR := obj
 
 OBJS := ${SRCS_FILES:%=${OBJS_DIR}/%.o}
 
-OBS_SORT := ${sort {dir ${OBJS}}}
+OBJS_SORT := ${sort ${dir ${OBJS}}}
 
 LIBFT_DIR := libft
 
@@ -47,7 +48,7 @@ LIBFT_AR := libft/libft.a
 all: ${NAME}
 
 ${NAME}: ${OBJS} ${LIBFT_AR}
-	${CC} ${C_FLAGS} $^ ${INCLUDES} $@
+	${CC} ${C_FLAGS} $^ ${INCLUDES} -o $@
 	@echo "${GREEN}--------------------------${DEFAULT}"
 	@echo "${GREEN}   COMPILATION COMPLETE   ${DEFAULT}"
 	@echo "${GREEN}--------------------------${DEFAULT}"
