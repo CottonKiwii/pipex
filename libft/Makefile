@@ -6,7 +6,7 @@
 #    By: CottonKiwii <julia.wolfram@gmx.at>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/12 18:21:08 by jwolfram          #+#    #+#              #
-#    Updated: 2024/06/03 22:36:33 by CottonKiwii      ###   ########.fr        #
+#    Updated: 2024/09/11 15:48:10 by jwolfram         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -76,7 +76,6 @@ SRCS_FILES := libft/ft_isalpha \
 			  ft_printf/ft_print_ptr \
 			  ft_printf/ft_print_unsigned \
 			  ft_printf/ft_print_hex \
-			  get_next_line/get_next_line \
 
 SRCS := ${SRCS_FILES:%=${SRCS_DIR}/%.c}
 
