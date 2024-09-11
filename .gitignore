@@ -1,0 +1,5 @@
+pipex
+.clangd
+obj
+libft/libft.a
+libft/obj
