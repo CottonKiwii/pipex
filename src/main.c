@@ -6,7 +6,7 @@
 /*   By: jwolfram <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 15:37:47 by jwolfram          #+#    #+#             */
-/*   Updated: 2024/09/11 18:57:38 by jwolfram         ###   ########.fr       */
+/*   Updated: 2024/09/13 17:18:14 by jwolfram         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ void	open_file(t_struct *stc)
 int	main(int ac, char **av, char **env)
 {
 	t_struct	stc;
-	char		**path;
 
 	if (ac < 5)
 		return (1);
