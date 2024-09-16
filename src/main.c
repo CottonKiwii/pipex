@@ -6,7 +6,7 @@
 /*   By: jwolfram <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 15:37:47 by jwolfram          #+#    #+#             */
-/*   Updated: 2024/09/16 12:47:16 by jwolfram         ###   ########.fr       */
+/*   Updated: 2024/09/16 17:59:20 by jwolfram         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ void	open_file(t_struct *stc)
 		perror("pipex");
 }
 
+#include "ft_printf.h"
 int	main(int ac, char **av, char **env)
 {
 	t_struct	stc;
@@ -48,5 +49,24 @@ int	main(int ac, char **av, char **env)
 		return (1);
 	stc_init(&stc, ac, av, env); // KEEP IN MIND IF INFILE IS -1 FOR LATER!
 	get_paths(&stc); // KEEP IN MIND IF PATH IS NULL FOR LATER!
-	get_access(&stc);
+	
+	int		i;
+	t_cmd	*cur;
+	for (i = 0; stc.path[i]; i++)
+		ft_printf("Path is %s\n", stc.path[i]);
+	ft_printf("Argc is %d\n", stc.ac);
+	for (i = 0; stc.av[i]; i++)
+		ft_printf("Argv is %s\n", stc.av[i]);
+	for (i = 0; stc.env[i]; i++)
+		ft_printf("Environment is %s\n", stc.env[i]);
+	ft_printf("Infile is %d\n", stc.infile);
+	cur = stc.cmd;
+	while (cur)
+	{
+		ft_printf("Command Path is %s\n", cur->path);
+		for (i = 0; cur->args[i]; i++)
+			ft_printf("Command Arg is %s\n", cur->args[i]);
+		cur = cur->next;
+	}
+//	get_access(&stc);
 }

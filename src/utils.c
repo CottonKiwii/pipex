@@ -5,41 +5,36 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: jwolfram <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/16 10:18:04 by jwolfram          #+#    #+#             */
-/*   Updated: 2024/09/16 13:00:00 by jwolfram         ###   ########.fr       */
+/*   Created: 2024/09/16 16:36:34 by jwolfram          #+#    #+#             */
+/*   Updated: 2024/09/16 16:50:47 by jwolfram         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-void	ft_free_str(char **str)
+int	ft_wordcount(char *str, char c)
 {
-	int	idx;
-	int	idx2;
+	int	i;
+	int	words;
+	int	swch;
 
-	idx = 0;
-	idx2 = 0;
-	while (str[idx])
-	{
-
-	}
-}
-
-void	ft_exit(t_struct *stc, int i)
-{
-	t_cmd	*tmp;		
-	t_cmd	*cur;
-
-	cur = stc->cmd;
-	while(cur)
-	{
-		tmp = cur->next;
-		if (cur->args)
-			ft_free_str(cur->args);
-		free(cur);
-		cur = tmp;
-	}
+	i = 0;
+	words = 0;
+	while (str && str[i] != c)
+		i++;
 	if (i)
-		exit(1);
-	exit(0);
+		words++;
+	while (str)
+	{
+		if (str[i] == c && str[i + 1] != c)
+			words++;
+		if ((str[i] == '"' || str[i] == '\'') && swch)
+		{
+			swch = 0;
+			words++;
+		}
+		else
+			swch = 1;
+	}
+	return (words);
 }

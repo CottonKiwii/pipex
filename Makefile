@@ -6,7 +6,7 @@
 #    By: jwolfram <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/10 16:29:52 by jwolfram          #+#    #+#              #
-#    Updated: 2024/09/11 18:47:47 by jwolfram         ###   ########.fr        #
+#    Updated: 2024/09/16 17:38:43 by jwolfram         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,6 +32,7 @@ SRCS_DIR := src
 
 SRCS_FILES := main \
 			  init \
+			  exit \
 
 SRCS := ${SRCS_FILES:%=${SRCS_DIR}/%.c}
 
