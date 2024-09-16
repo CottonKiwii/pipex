@@ -6,16 +6,20 @@
 /*   By: jwolfram <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 15:37:47 by jwolfram          #+#    #+#             */
-/*   Updated: 2024/09/13 17:18:14 by jwolfram         ###   ########.fr       */
+/*   Updated: 2024/09/16 10:49:27 by jwolfram         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
+void	get_access(t_struct *stc)
+{
+
+}
+
 void	get_paths(t_struct *stc)
 {
 	char	*all_paths;
-	char	**paths;
 
 	all_paths = path_init(stc);
 	if (!all_paths)
@@ -31,7 +35,7 @@ void	get_paths(t_struct *stc)
 void	open_file(t_struct *stc)
 {
 	stc->infile = open(stc->av[1], O_RDONLY);
-	if (stc->infile == -1)
+	if (stc->infile == RDERR)
 		perror("pipex");
 }
 
@@ -43,4 +47,5 @@ int	main(int ac, char **av, char **env)
 		return (1);
 	stc_init(&stc, ac, av, env); // KEEP IN MIND IF INFILE IS -1 FOR LATER!
 	get_paths(&stc); // KEEP IN MIND IF PATH IS NULL FOR LATER!
+	get_access(&stc);
 }
