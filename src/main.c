@@ -6,7 +6,7 @@
 /*   By: jwolfram <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 15:37:47 by jwolfram          #+#    #+#             */
-/*   Updated: 2024/09/16 10:49:27 by jwolfram         ###   ########.fr       */
+/*   Updated: 2024/09/16 12:47:16 by jwolfram         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,11 @@ void	get_paths(t_struct *stc)
 		return ;
 	all_paths = ft_substr(all_paths, 5, (ft_strlen(all_paths) - 5));
 	if (!all_paths)
-		exit(1); // ADD A FACKEN FREE FOR YO STRUCT!!!
+		ft_exit(stc, 1);
 	stc->path = ft_split(all_paths, ':');
+	free(all_paths);
 	if (!stc->path)
-		exit(1); // ADD A FACKEN FREE FOR YO STRUCT!!!
+		ft_exit(stc, 1);
 }
 
 void	open_file(t_struct *stc)
