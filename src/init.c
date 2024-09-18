@@ -6,61 +6,43 @@
 /*   By: jwolfram <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 18:29:33 by jwolfram          #+#    #+#             */
-/*   Updated: 2024/09/18 11:08:08 by jwolfram         ###   ########.fr       */
+/*   Updated: 2024/09/18 16:52:02 by jwolfram         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-void	get_args(t_cmd *node, t_struct *stc)	
+void	node_init(t_struct *stc, t_cmd *node, t_cmd *tmp, int count)
 {
-	int		i;
-	char	**tmp;
-
-	i = 0;
-	if (!node->path || ft_strchr(node->path, '"') 
-		|| ft_strchr(node->path, '\''))
-		ft_exit(stc, FALSE);
-	tmp = ft_split(node->path, ' ');
-	node->path = NULL;
-	if (!tmp)
-	{
-		perror("pipex");
-		ft_exit(stc, FALSE);
-	}
-	node->args = tmp;
-	node->path = ft_strdup(node->args[0]);
+	if (count == 1)
+		stc->cmd = node;
+	else
+		tmp->next = node;
+	node->nbr = count;
+	get_args(node, stc);
 }
 
 void	commands_init(t_struct *stc)
 {
 	int		i;
+	int		count;
 	t_cmd	*node;
 	t_cmd	*tmp;
 
 	i = 2;
+	count = 1;
 	tmp = NULL;
 	while (i < (stc->ac - 1))
 	{
 		node = (t_cmd *)ft_calloc(1, sizeof(t_cmd));
 		if (!node)
-			ft_exit(stc, FALSE);
-		if (tmp)
-			tmp->next = node;
+			ft_exit(stc, ERR);
 		node->path = stc->av[i];
-		if (i == 2)
-			stc->cmd = node;
-		get_args(node, stc);
+		node_init(stc, node, tmp, count);
 		tmp = node;
+		count++;
 		i++;
 	}
-}
-
-void	open_file(t_struct *stc)
-{
-	stc->infile = open(stc->av[1], O_RDONLY);
-	if (stc->infile == RDERR)
-		perror("pipex");
 }
 
 void	stc_init(t_struct *stc, int ac, char **av, char **env)
@@ -71,7 +53,7 @@ void	stc_init(t_struct *stc, int ac, char **av, char **env)
 	stc->cmd = NULL;
 	stc->enpath = NULL;
 	stc->outfile = -1;
-	open_file(stc);
+	ft_open_file(stc, INFILE);
 	commands_init(stc);
 }
 

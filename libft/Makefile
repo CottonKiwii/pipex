@@ -6,7 +6,7 @@
 #    By: CottonKiwii <julia.wolfram@gmx.at>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/12 18:21:08 by jwolfram          #+#    #+#              #
-#    Updated: 2024/09/11 15:48:10 by jwolfram         ###   ########.fr        #
+#    Updated: 2024/09/18 15:10:20 by jwolfram         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,6 +32,7 @@ SRCS_FILES := libft/ft_isalpha \
 			  libft/ft_isascii \
 			  libft/ft_isprint \
 			  libft/ft_strlen \
+			  libft/ft_strarrlen \
 			  libft/ft_memset \
 			  libft/ft_bzero \
 			  libft/ft_memcpy \

@@ -6,13 +6,13 @@
 /*   By: jwolfram <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 17:55:31 by jwolfram          #+#    #+#             */
-/*   Updated: 2024/04/16 19:24:29 by jwolfram         ###   ########.fr       */
+/*   Updated: 2024/09/18 15:21:08 by jwolfram         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strnstr(const char *big, const char *little, size_t len)
+char	*ft_strnstr(const char *big, char *little, size_t len)
 {
 	size_t	llen;
 

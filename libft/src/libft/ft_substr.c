@@ -6,13 +6,13 @@
 /*   By: CottonKiwii <julia.wolfram@gmx.at>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 12:46:02 by jwolfram          #+#    #+#             */
-/*   Updated: 2024/06/03 21:53:02 by CottonKiwii      ###   ########.fr       */
+/*   Updated: 2024/09/18 15:22:01 by jwolfram         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_substr(const char *s, unsigned int start, size_t len)
+char	*ft_substr(char *s, unsigned int start, size_t len)
 {
 	char	*sub;
 	size_t	i;

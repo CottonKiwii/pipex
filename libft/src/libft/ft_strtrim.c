@@ -6,7 +6,7 @@
 /*   By: jwolfram <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 18:28:45 by jwolfram          #+#    #+#             */
-/*   Updated: 2024/05/13 15:33:22 by jwolfram         ###   ########.fr       */
+/*   Updated: 2024/09/18 15:22:55 by jwolfram         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static int	ft_isinset(char c, const char *set)
 	return (0);
 }
 
-char	*ft_strtrim(const char *s1, const char *set)
+char	*ft_strtrim(char *s1, const char *set)
 {
 	char			*res;
 	size_t			rlen;

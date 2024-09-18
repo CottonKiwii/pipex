@@ -6,35 +6,25 @@
 /*   By: jwolfram <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 16:36:34 by jwolfram          #+#    #+#             */
-/*   Updated: 2024/09/16 16:50:47 by jwolfram         ###   ########.fr       */
+/*   Updated: 2024/09/18 17:32:57 by jwolfram         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-int	ft_wordcount(char *str, char c)
-{
-	int	i;
-	int	words;
-	int	swch;
 
-	i = 0;
-	words = 0;
-	while (str && str[i] != c)
-		i++;
-	if (i)
-		words++;
-	while (str)
+void	ft_open_file(t_struct *stc, int file)
+{
+	if (file == INFILE)
 	{
-		if (str[i] == c && str[i + 1] != c)
-			words++;
-		if ((str[i] == '"' || str[i] == '\'') && swch)
-		{
-			swch = 0;
-			words++;
-		}
-		else
-			swch = 1;
+		stc->infile = open(stc->av[1], O_RDONLY);
+		if (stc->infile == RDERR)
+			perror("pipex");
 	}
-	return (words);
+	else
+	{
+		stc->outfile = open(stc->av[stc->ac - 1], WR | CR | TR, 0644);
+		if (stc->outfile == RDERR)
+			perror("pipex");
+	}
 }
