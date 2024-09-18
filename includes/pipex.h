@@ -6,7 +6,7 @@
 /*   By: jwolfram <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 15:50:59 by jwolfram          #+#    #+#             */
-/*   Updated: 2024/09/16 13:32:28 by jwolfram         ###   ########.fr       */
+/*   Updated: 2024/09/18 11:08:39 by jwolfram         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,12 @@
 
 # include "libft.h"
 # include <fcntl.h>
+# include <errno.h>
 
-# define RDERR -1
-# define NOSTR NULL
+# define FALSE	1
+# define TRUE	0
+# define RDERR	-1
+# define NOSTR	NULL
 
 typedef struct	s_cmd
 {
@@ -33,7 +36,7 @@ typedef struct	s_struct
 	char			**env;
 	int				infile;
 	int				outfile;
-	char			**path;
+	char			**enpath;
 	t_cmd			*cmd;	
 }	t_struct;
 

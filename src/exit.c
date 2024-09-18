@@ -6,7 +6,7 @@
 /*   By: jwolfram <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 16:36:13 by jwolfram          #+#    #+#             */
-/*   Updated: 2024/09/16 16:36:17 by jwolfram         ###   ########.fr       */
+/*   Updated: 2024/09/18 11:08:17 by jwolfram         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,21 +36,24 @@ void	ft_free_commands(t_struct *stc)
 	while(cur)
 	{
 		tmp = cur->next;	
-		free(cur->path);
 		ft_free_str(cur->args);
+		free(cur->path);
 		free(cur);
 		cur = tmp;
 	}
 }
 
-void	ft_exit(t_struct *stc, int i)
+void	ft_exit(t_struct *stc, int error)
 {
+	if (errno)
+		perror("pipex");
 	ft_free_commands(stc);
-	if (stc->infile)
+	ft_free_str(stc->enpath);
+	if (stc->infile != RDERR)
 		close(stc->infile);
-	if (stc->outfile)
+	if (stc->outfile != RDERR)
 		close(stc->outfile);
-	if (i)
+	if (error)
 		exit(1);
 	exit(0);
 }
