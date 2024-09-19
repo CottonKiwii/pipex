@@ -6,7 +6,7 @@
 /*   By: jwolfram <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 16:56:01 by jwolfram          #+#    #+#             */
-/*   Updated: 2024/09/18 16:57:35 by jwolfram         ###   ########.fr       */
+/*   Updated: 2024/09/19 13:39:35 by jwolfram         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ void	get_access(t_struct *stc)
 			cur->path = ft_strjoin(ft_strdup(stc->enpath[i]), cur->args[0]);
 			if (!access(cur->path, X_OK))
 				break ;
+			errno = 0;
 			free(cur->path);
 			i++;
 		}
@@ -71,7 +72,6 @@ void	get_paths(t_struct *stc)
 		ft_exit(stc, ERR);
 	i = 0;
 	stc->enlen = ft_strarrlen(stc->enpath);
-	ft_printf("Environment String lenth is %d", stc->enlen);
 	while (stc->enpath[i])
 	{
 		stc->enpath[i] = ft_strjoin(stc->enpath[i], "/");

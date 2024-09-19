@@ -6,21 +6,61 @@
 /*   By: jwolfram <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 15:37:47 by jwolfram          #+#    #+#             */
-/*   Updated: 2024/09/18 17:25:55 by jwolfram         ###   ########.fr       */
+/*   Updated: 2024/09/19 14:02:54 by jwolfram         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
+#include <stdio.h>
+
+void	ft_kill_child(t_struct *stc, t_cmd *cmd)
+{
+	(void)cmd;
+	dprintf(STDERR_FILENO, "i am very sad %s\n", cmd->path);
+	ft_exit(stc, ERR);
+}
+
+void	ft_wrap_dup(t_struct *stc, int old_fd, int new_fd)
+{
+	if (dup2(old_fd, new_fd) == -1)
+	{
+		close(old_fd);
+		ft_exit(stc, ERR);
+	}
+	close(old_fd);
+}
+
+void	ft_execute_child(t_struct *stc, t_cmd *cmd, int fd[2])
+{
+	close(fd[0]);
+	if (cmd->nbr == (stc->ac - 3))
+	{
+		ft_wrap_dup(stc, stc->outfile, STDOUT_FILENO);
+		close(fd[1]);
+	}
+	else
+		ft_wrap_dup(stc, fd[1], STDOUT_FILENO);
+	if (execve(cmd->path, cmd->args, stc->env) == -1)
+		ft_kill_child(stc, cmd);
+}
 
 void	ft_execute(t_struct *stc, t_cmd *cmd)
 {
-	int	error;
+	int		fd[2];
+	pid_t	pid;
 
-	if (cmd->nbr == (stc->ac - 2))
-		return ; // HANDLE LAST COMMAND DIFFERENTLY
-	error = execve(cmd->path, cmd->args, stc->env);
-	if (error)
-		perror("pipex");
+	if (pipe(fd) == -1)
+		ft_exit(stc, ERR);
+	pid = fork();
+	if (pid == -1)
+		ft_exit(stc, ERR);
+	else if (pid == 0)
+		ft_execute_child(stc, cmd, fd);
+	close(fd[1]);
+	if (cmd->nbr == (stc->ac - 3))
+		close(fd[0]);
+	else
+		ft_wrap_dup(stc, fd[0], STDIN_FILENO);
 }
 
 void	fd_to_stdin(t_struct *stc, int fd)
@@ -30,6 +70,21 @@ void	fd_to_stdin(t_struct *stc, int fd)
 	if (fd == RDERR)
 		return ;
 	error = dup2(fd, STDIN_FILENO);
+	if (error == -1)
+		ft_exit(stc, ERR);
+	close(fd);
+}
+
+void	fd_to_stdout(t_struct *stc, int fd)
+{
+	int error;
+
+	if (fd == RDERR)
+		return ;
+	error = dup2(fd, STDOUT_FILENO);
+	if (error == -1)
+		ft_exit(stc, ERR);
+	close(fd);
 }
 
 int	main(int ac, char **av, char **env)
@@ -42,5 +97,7 @@ int	main(int ac, char **av, char **env)
 	get_paths(&stc);
 	get_access(&stc);
 	ft_execute(&stc, stc.cmd);
+	ft_open_file(&stc, OUTFILE);
+	ft_execute(&stc, stc.cmd->next);
 	ft_exit(&stc, 0);
 }
