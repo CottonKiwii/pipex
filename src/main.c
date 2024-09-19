@@ -6,7 +6,7 @@
 /*   By: jwolfram <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 14:51:56 by jwolfram          #+#    #+#             */
-/*   Updated: 2024/09/19 15:03:52 by jwolfram         ###   ########.fr       */
+/*   Updated: 2024/09/19 18:05:15 by jwolfram         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,11 @@ void	ft_wrap_dup(t_struct *stc, int old_fd, int new_fd)
 void	execute_child(t_struct *stc, t_cmd *cmd, int fd[2])
 {
 	close(fd[0]);
+	if (cmd->nbr == 1 && stc->infile == -1)
+	{
+		close(fd[1]);
+		ft_exit(stc, ERR);
+	}
 	if (cmd->nbr == (stc->ac - 3))
 	{
 		ft_wrap_dup(stc, stc->outfile, STDOUT_FILENO);
@@ -105,11 +110,14 @@ void	execute_commands(t_struct *stc)
 		cur = cur->next;
 	}
 	ft_open_file(stc, OUTFILE);
+	if (stc->outfile == -1)
+		ft_exit(stc, ERR);
 	pid = ft_execute(stc, cur);
 	if (waitpid(pid, &status, 0) == -1)
 		ft_exit(stc, ERR);
 	if (WIFEXITED(status))
 		ft_exit(stc, WEXITSTATUS(status));
+	ft_exit(stc, ERR);
 }
 
 int	main(int ac, char **av, char **env)

@@ -6,7 +6,7 @@
 /*   By: jwolfram <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 16:36:34 by jwolfram          #+#    #+#             */
-/*   Updated: 2024/09/19 13:37:57 by jwolfram         ###   ########.fr       */
+/*   Updated: 2024/09/19 18:06:11 by jwolfram         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,4 +29,5 @@ void	ft_open_file(t_struct *stc, t_nbr file)
 		if (stc->outfile == RDERR)
 			perror("pipex");
 	}
+	errno = 0;
 }

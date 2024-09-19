@@ -6,7 +6,7 @@
 /*   By: jwolfram <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 16:56:01 by jwolfram          #+#    #+#             */
-/*   Updated: 2024/09/19 14:40:34 by jwolfram         ###   ########.fr       */
+/*   Updated: 2024/09/19 15:22:52 by jwolfram         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,11 @@ void	get_access(t_struct *stc)
 			cur->path = ft_strjoin(ft_strdup(stc->enpath[i]), cur->args[0]);
 			if (!access(cur->path, X_OK))
 				break ;
+			if (!access(cur->path, F_OK))
+			{
+				i++;
+				continue ;
+			}
 			errno = 0;
 			free(cur->path);
 			i++;
