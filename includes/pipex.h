@@ -6,7 +6,7 @@
 /*   By: jwolfram <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 15:50:59 by jwolfram          #+#    #+#             */
-/*   Updated: 2024/09/19 13:35:27 by jwolfram         ###   ########.fr       */
+/*   Updated: 2024/09/19 14:55:08 by jwolfram         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include "libft.h"
 # include <fcntl.h>
 # include <errno.h>
+# include <sys/wait.h>
 
 # define RDERR	-1
 # define WR O_WRONLY

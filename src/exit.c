@@ -36,14 +36,16 @@ void	ft_free_commands(t_struct *stc)
 	while(cur)
 	{
 		tmp = cur->next;	
-		ft_free_str(cur->args, ft_strarrlen(cur->args));
-		free(cur->path);
+		if (cur->args)
+			ft_free_str(cur->args, ft_strarrlen(cur->args));
+		if (cur->path)
+			free(cur->path);
 		free(cur);
 		cur = tmp;
 	}
 }
 
-void	ft_exit(t_struct *stc, int error)
+void	ft_exit(t_struct *stc, int status)
 {
 	if (errno)
 		perror("pipex");
@@ -53,7 +55,5 @@ void	ft_exit(t_struct *stc, int error)
 		close(stc->infile);
 	if (stc->outfile != RDERR)
 		close(stc->outfile);
-	if (error)
-		exit(1);
-	exit(0);
+	exit(status);
 }

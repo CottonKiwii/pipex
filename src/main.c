@@ -5,15 +5,15 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: jwolfram <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/11 15:37:47 by jwolfram          #+#    #+#             */
-/*   Updated: 2024/09/19 14:02:54 by jwolfram         ###   ########.fr       */
+/*   Created: 2024/09/19 14:51:56 by jwolfram          #+#    #+#             */
+/*   Updated: 2024/09/19 15:03:52 by jwolfram         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 #include <stdio.h>
 
-void	ft_kill_child(t_struct *stc, t_cmd *cmd)
+void	kill_child(t_struct *stc, t_cmd *cmd)
 {
 	(void)cmd;
 	dprintf(STDERR_FILENO, "i am very sad %s\n", cmd->path);
@@ -30,7 +30,7 @@ void	ft_wrap_dup(t_struct *stc, int old_fd, int new_fd)
 	close(old_fd);
 }
 
-void	ft_execute_child(t_struct *stc, t_cmd *cmd, int fd[2])
+void	execute_child(t_struct *stc, t_cmd *cmd, int fd[2])
 {
 	close(fd[0]);
 	if (cmd->nbr == (stc->ac - 3))
@@ -41,10 +41,10 @@ void	ft_execute_child(t_struct *stc, t_cmd *cmd, int fd[2])
 	else
 		ft_wrap_dup(stc, fd[1], STDOUT_FILENO);
 	if (execve(cmd->path, cmd->args, stc->env) == -1)
-		ft_kill_child(stc, cmd);
+		kill_child(stc, cmd);
 }
 
-void	ft_execute(t_struct *stc, t_cmd *cmd)
+pid_t	ft_execute(t_struct *stc, t_cmd *cmd)
 {
 	int		fd[2];
 	pid_t	pid;
@@ -53,14 +53,19 @@ void	ft_execute(t_struct *stc, t_cmd *cmd)
 		ft_exit(stc, ERR);
 	pid = fork();
 	if (pid == -1)
+	{
+		close(fd[0]);
+		close(fd[1]);
 		ft_exit(stc, ERR);
+	}
 	else if (pid == 0)
-		ft_execute_child(stc, cmd, fd);
+		execute_child(stc, cmd, fd);
 	close(fd[1]);
 	if (cmd->nbr == (stc->ac - 3))
 		close(fd[0]);
 	else
 		ft_wrap_dup(stc, fd[0], STDIN_FILENO);
+	return (pid);
 }
 
 void	fd_to_stdin(t_struct *stc, int fd)
@@ -87,6 +92,26 @@ void	fd_to_stdout(t_struct *stc, int fd)
 	close(fd);
 }
 
+void	execute_commands(t_struct *stc)
+{
+	t_cmd	*cur;
+	int		status;
+	pid_t	pid;
+	
+	cur = stc->cmd;
+	while(cur && cur->nbr != (stc->ac - 3))
+	{
+		ft_execute(stc, cur);
+		cur = cur->next;
+	}
+	ft_open_file(stc, OUTFILE);
+	pid = ft_execute(stc, cur);
+	if (waitpid(pid, &status, 0) == -1)
+		ft_exit(stc, ERR);
+	if (WIFEXITED(status))
+		ft_exit(stc, WEXITSTATUS(status));
+}
+
 int	main(int ac, char **av, char **env)
 {
 	t_struct	stc;
@@ -96,8 +121,5 @@ int	main(int ac, char **av, char **env)
 	stc_init(&stc, ac, av, env); // KEEP IN MIND IF INFILE IS -1 FOR LATER!
 	get_paths(&stc);
 	get_access(&stc);
-	ft_execute(&stc, stc.cmd);
-	ft_open_file(&stc, OUTFILE);
-	ft_execute(&stc, stc.cmd->next);
-	ft_exit(&stc, 0);
+	execute_commands(&stc);
 }

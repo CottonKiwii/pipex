@@ -6,14 +6,13 @@
 #    By: jwolfram <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/10 16:29:52 by jwolfram          #+#    #+#              #
-#    Updated: 2024/09/18 16:57:56 by jwolfram         ###   ########.fr        #
+#    Updated: 2024/09/19 15:05:00 by jwolfram         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME := pipex
 
-### REMOVE -G!!!
-CC := cc -g
+CC := cc
 
 C_FLAGS := -Wall -Wextra -Werror
 

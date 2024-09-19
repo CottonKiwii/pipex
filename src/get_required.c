@@ -6,7 +6,7 @@
 /*   By: jwolfram <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 16:56:01 by jwolfram          #+#    #+#             */
-/*   Updated: 2024/09/19 13:39:35 by jwolfram         ###   ########.fr       */
+/*   Updated: 2024/09/19 14:40:34 by jwolfram         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ void	get_args(t_cmd *node, t_struct *stc)
 		|| ft_strchr(node->path, '\''))
 		ft_exit(stc, ERR);
 	tmp = ft_split(node->path, ' ');
+	free(node->path);
 	node->path = NULL;
 	if (!tmp)
 	{

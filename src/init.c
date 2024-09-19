@@ -6,7 +6,7 @@
 /*   By: jwolfram <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 18:29:33 by jwolfram          #+#    #+#             */
-/*   Updated: 2024/09/18 16:52:02 by jwolfram         ###   ########.fr       */
+/*   Updated: 2024/09/19 14:42:46 by jwolfram         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ void	node_init(t_struct *stc, t_cmd *node, t_cmd *tmp, int count)
 	else
 		tmp->next = node;
 	node->nbr = count;
+	if (!node->path)
+		ft_exit(stc, ERR);
 	get_args(node, stc);
 }
 
@@ -37,7 +39,7 @@ void	commands_init(t_struct *stc)
 		node = (t_cmd *)ft_calloc(1, sizeof(t_cmd));
 		if (!node)
 			ft_exit(stc, ERR);
-		node->path = stc->av[i];
+		node->path = ft_strdup(stc->av[i]);
 		node_init(stc, node, tmp, count);
 		tmp = node;
 		count++;
