@@ -6,19 +6,19 @@
 /*   By: jwolfram <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 16:56:01 by jwolfram          #+#    #+#             */
-/*   Updated: 2024/09/20 12:28:56 by jwolfram         ###   ########.fr       */
+/*   Updated: 2024/09/20 14:26:19 by jwolfram         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-void	get_args(t_cmd *node, t_struct *stc)	
+void	get_args(t_cmd *node, t_struct *stc)
 {
 	int		i;
 	char	**tmp;
 
 	i = 0;
-	if (!node->path || ft_strchr(node->path, '"') 
+	if (!node->path || ft_strchr(node->path, '"')
 		|| ft_strchr(node->path, '\''))
 		ft_exit(stc, ERR);
 	tmp = ft_split(node->path, ' ');
@@ -30,43 +30,6 @@ void	get_args(t_cmd *node, t_struct *stc)
 		ft_exit(stc, ERR);
 	}
 	node->args = tmp;
-}
-
-void	ft_null(char **ref)
-{
-	char	*str;
-	
-	str = *ref;
-	free(str);
-	*ref = NULL;
-}
-
-int	ft_check_access(t_struct *stc, t_cmd *cur, char *enpath)
-{
-	char	*path_tmp;
-
-	path_tmp = ft_strdup(enpath);
-	if (!path_tmp)
-		ft_exit(stc, ERR);
-	path_tmp = ft_strjoin(path_tmp, cur->args[0]);
-	if (!path_tmp)
-		ft_exit(stc, ERR);
-	if (!access(path_tmp, X_OK))
-	{
-		if (cur->path)
-			ft_null(&cur->path);
-		cur->path = path_tmp;
-		return (1);
-	}
-	if (!access(path_tmp, F_OK))
-	{
-		if (cur->path)
-			ft_null(&cur->path);
-		cur->path = path_tmp;
-		return (0);
-	}
-	free(path_tmp);
-	return (0);
 }
 
 int	default_path(t_struct *stc, t_cmd *cmd)

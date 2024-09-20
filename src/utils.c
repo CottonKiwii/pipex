@@ -6,7 +6,7 @@
 /*   By: jwolfram <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 11:04:05 by jwolfram          #+#    #+#             */
-/*   Updated: 2024/09/20 11:06:09 by jwolfram         ###   ########.fr       */
+/*   Updated: 2024/09/20 14:20:03 by jwolfram         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,4 +39,32 @@ void	ft_open_file(t_struct *stc, t_nbr file)
 			perror("pipex");
 	}
 	errno = 0;
+}
+
+int	ft_check_access(t_struct *stc, t_cmd *cur, char *enpath)
+{
+	char	*path_tmp;
+
+	path_tmp = ft_strdup(enpath);
+	if (!path_tmp)
+		ft_exit(stc, ERR);
+	path_tmp = ft_strjoin(path_tmp, cur->args[0]);
+	if (!path_tmp)
+		ft_exit(stc, ERR);
+	if (!access(path_tmp, X_OK))
+	{
+		if (cur->path)
+			ft_null(&cur->path);
+		cur->path = path_tmp;
+		return (1);
+	}
+	if (!access(path_tmp, F_OK))
+	{
+		if (cur->path)
+			ft_null(&cur->path);
+		cur->path = path_tmp;
+		return (0);
+	}
+	free(path_tmp);
+	return (0);
 }

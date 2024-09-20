@@ -6,7 +6,7 @@
 /*   By: jwolfram <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 14:51:56 by jwolfram          #+#    #+#             */
-/*   Updated: 2024/09/20 12:10:08 by jwolfram         ###   ########.fr       */
+/*   Updated: 2024/09/20 14:17:12 by jwolfram         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@ void	execute_commands(t_struct *stc)
 	t_cmd	*cur;
 	int		status;
 	pid_t	pid;
-	
+
 	cur = stc->cmd;
-	while(cur && cur->nbr != (stc->ac - 3))
+	while (cur && cur->nbr != (stc->ac - 3))
 	{
 		ft_execute(stc, cur);
 		cur = cur->next;
@@ -41,7 +41,7 @@ int	main(int ac, char **av, char **env)
 
 	if (ac < 5)
 		return (ft_putstr_fd("pipex: Invalid Arguments\n", STDERR_FILENO), ERR);
-	stc_init(&stc, ac, av, env); // KEEP IN MIND IF INFILE IS -1 FOR LATER!
+	stc_init(&stc, ac, av, env);
 	get_paths(&stc);
 	get_access(&stc);
 	execute_commands(&stc);

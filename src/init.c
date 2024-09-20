@@ -6,7 +6,7 @@
 /*   By: jwolfram <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 18:29:33 by jwolfram          #+#    #+#             */
-/*   Updated: 2024/09/19 14:42:46 by jwolfram         ###   ########.fr       */
+/*   Updated: 2024/09/20 14:18:07 by jwolfram         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	commands_init(t_struct *stc)
 
 void	stc_init(t_struct *stc, int ac, char **av, char **env)
 {
-	stc->ac = ac;	
+	stc->ac = ac;
 	stc->av = av;
 	stc->env = env;
 	stc->cmd = NULL;
@@ -66,7 +66,7 @@ char	*path_init(t_struct *stc)
 	i = 0;
 	while (stc->env[i])
 	{
-		if (ft_strncmp(stc->env[i], "PATH=", 5) == 0) 
+		if (ft_strncmp(stc->env[i], "PATH=", 5) == 0)
 			return (stc->env[i]);
 		i++;
 	}

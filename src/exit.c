@@ -6,7 +6,7 @@
 /*   By: jwolfram <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 12:30:30 by jwolfram          #+#    #+#             */
-/*   Updated: 2024/09/20 12:30:31 by jwolfram         ###   ########.fr       */
+/*   Updated: 2024/09/20 14:29:04 by jwolfram         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,9 @@ void	ft_free_commands(t_struct *stc)
 	t_cmd	*cur;
 
 	cur = stc->cmd;
-	while(cur)
+	while (cur)
 	{
-		tmp = cur->next;	
+		tmp = cur->next;
 		if (cur->args)
 			ft_free_str(cur->args, ft_strarrlen(cur->args));
 		if (cur->path)
@@ -57,4 +57,13 @@ void	ft_exit(t_struct *stc, int status)
 	if (stc->outfile != RDERR)
 		close(stc->outfile);
 	exit(status);
+}
+
+void	ft_null(char **ref)
+{
+	char	*str;
+
+	str = *ref;
+	free(str);
+	*ref = NULL;
 }
