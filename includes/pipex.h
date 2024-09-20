@@ -6,7 +6,7 @@
 /*   By: jwolfram <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 15:50:59 by jwolfram          #+#    #+#             */
-/*   Updated: 2024/09/19 14:55:08 by jwolfram         ###   ########.fr       */
+/*   Updated: 2024/09/20 11:02:44 by jwolfram         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,11 +57,16 @@ void	stc_init(t_struct *stc, int ac, char **av, char **env);
 char	*path_init(t_struct *stc);
 
 void	ft_open_file(t_struct *stc, t_nbr file);
-void	ft_wrap_dup(t_struct *stc, int old_fd, int new_fd);
+void	execute_commands(t_struct *stc);
+void	ft_dup(t_struct *stc, int old_fd, int new_fd);
 
 void	get_args(t_cmd *node, t_struct *stc);
 void	get_access(t_struct *stc);
 void	get_paths(t_struct *stc);
+
+void	kill_child(t_struct *stc, t_cmd *cmd);
+void	execute_child(t_struct *stc, t_cmd *cmd, int fd[2]);
+pid_t	ft_execute(t_struct *stc, t_cmd *cmd);
 
 void	ft_free_str(char **str, int len);
 void	ft_free_commands(t_struct *stc);

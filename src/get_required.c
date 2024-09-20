@@ -6,7 +6,7 @@
 /*   By: jwolfram <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 16:56:01 by jwolfram          #+#    #+#             */
-/*   Updated: 2024/09/19 15:22:52 by jwolfram         ###   ########.fr       */
+/*   Updated: 2024/09/20 12:28:56 by jwolfram         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,57 @@ void	get_args(t_cmd *node, t_struct *stc)
 	node->args = tmp;
 }
 
+void	ft_null(char **ref)
+{
+	char	*str;
+	
+	str = *ref;
+	free(str);
+	*ref = NULL;
+}
+
+int	ft_check_access(t_struct *stc, t_cmd *cur, char *enpath)
+{
+	char	*path_tmp;
+
+	path_tmp = ft_strdup(enpath);
+	if (!path_tmp)
+		ft_exit(stc, ERR);
+	path_tmp = ft_strjoin(path_tmp, cur->args[0]);
+	if (!path_tmp)
+		ft_exit(stc, ERR);
+	if (!access(path_tmp, X_OK))
+	{
+		if (cur->path)
+			ft_null(&cur->path);
+		cur->path = path_tmp;
+		return (1);
+	}
+	if (!access(path_tmp, F_OK))
+	{
+		if (cur->path)
+			ft_null(&cur->path);
+		cur->path = path_tmp;
+		return (0);
+	}
+	free(path_tmp);
+	return (0);
+}
+
+int	default_path(t_struct *stc, t_cmd *cmd)
+{
+	char	*path_tmp;
+
+	if (ft_strchr(cmd->args[0], '/'))
+	{
+		cmd->path = ft_strdup(cmd->args[0]);
+		if (!cmd->path)
+			ft_exit(stc, ERR);
+		return (0);
+	}
+	return (1);
+}
+
 void	get_access(t_struct *stc)
 {
 	t_cmd	*cur;
@@ -40,25 +91,25 @@ void	get_access(t_struct *stc)
 	cur = stc->cmd;
 	while (cur)
 	{
-		if (ft_strchr(cur->args[0], '/'))
-			return ;
+		if (!default_path(stc, cur))
+		{
+			cur = cur->next;
+			continue ;
+		}
 		i = 0;
 		while (stc->enpath[i])
 		{
-			cur->path = ft_strjoin(ft_strdup(stc->enpath[i]), cur->args[0]);
-			if (!access(cur->path, X_OK))
+			if (ft_check_access(stc, cur, stc->enpath[i]))
 				break ;
-			if (!access(cur->path, F_OK))
-			{
-				i++;
-				continue ;
-			}
-			errno = 0;
-			free(cur->path);
 			i++;
 		}
+		if (!cur->path)
+			cur->path = ft_strdup(cur->args[0]);
+		if (!cur->path)
+			ft_exit(stc, ERR);
 		cur = cur->next;
 	}
+	errno = 0;
 }
 
 void	get_paths(t_struct *stc)
