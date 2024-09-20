@@ -6,7 +6,7 @@
 /*   By: jwolfram <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 14:51:56 by jwolfram          #+#    #+#             */
-/*   Updated: 2024/09/20 14:17:12 by jwolfram         ###   ########.fr       */
+/*   Updated: 2024/09/20 16:29:28 by jwolfram         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	main(int ac, char **av, char **env)
 {
 	t_struct	stc;
 
-	if (ac < 5)
+	if (ac != 5)
 		return (ft_putstr_fd("pipex: Invalid Arguments\n", STDERR_FILENO), ERR);
 	stc_init(&stc, ac, av, env);
 	get_paths(&stc);
