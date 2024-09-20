@@ -16,21 +16,21 @@ PIPEX
 [X] waitpid - saves the exit status of the child and can be returned via macro (man waitpid)
 
 --- Overview ---
-[ ] Makefile
-[ ] No memory leaks
-[ ] Handle shell commands (file1 cmd 1 | cmd 2 > file2)
-[ ] Error handling
-[ ] Arguments as shell commands and files
+[X] Makefile
+[X] No memory leaks
+[X] Handle shell commands (file1 cmd 1 | cmd 2 > file2)
+[X] Error handling
+[X] Arguments as shell commands and files
 
 --- Steps ---
-[ ] Get arguments ready
-[ ] Handle fd changes with dup2 and don't forget to close!!!
-	[ ] Use dup2 to overwrite stdin and stdout
-	[ ] Use pipe to communicate between child and parent
-	[ ] Close original file
-[ ] Use execve
-	[ ] Check access
-	[ ] Create children
-	[ ] Get all the arguments for execve
-	[ ] Exit child manually if execve error
-[ ] Get final child's exit status with waitpid
+[X] Get arguments ready
+[X] Handle fd changes with dup2 and don't forget to close!!!
+	[X] Use dup2 to overwrite stdin and stdout
+	[X] Use pipe to communicate between child and parent
+	[X] Close original file
+[X] Use execve
+	[X] Check access
+	[X] Create children
+	[X] Get all the arguments for execve
+	[X] Exit child manually if execve error
+[X] Get final child's exit status with waitpid
