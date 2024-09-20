@@ -6,7 +6,7 @@
 #    By: jwolfram <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/10 16:29:52 by jwolfram          #+#    #+#              #
-#    Updated: 2024/09/20 14:42:05 by jwolfram         ###   ########.fr        #
+#    Updated: 2024/09/20 15:02:51 by jwolfram         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,8 +36,6 @@ SRCS_FILES := main \
 			  execute \
 			  get_required \
 			  utils \
-
-SRCS := ${SRCS_FILES:%=${SRCS_DIR}/%.c}
 
 OBJS_DIR := obj
 
@@ -79,10 +77,4 @@ fclean: clean
 
 re: fclean all
 
-norm:
-	norminette ${SRCS}
-
-print: 
-	echo ${OBJS}
-
-.PHONY: all clean fclean re norm print
+.PHONY: all clean fclean re
